@@ -1,0 +1,21 @@
+Rechanize is a simple RETS client.
+Rechanize provides an interface for querying metadata, data and objects.
+
+login  = "http://user:pass@rets.com/login_path"
+client = Rechanize::Client.new(login)
+
+params = 'Resource=Property&Class=Residential'
+format = 'Query=(LN=*),(RECODMODDATE=%s%s)'
+query  = params + (format % [Date.today, '%2B'])
+
+client.search(query) do |listing|
+  puts "$#{listing['LP']  ##{listing['LN']}"
+  puts "#{listing['STRNUM']} #{listing['STR']}"
+  puts "#{listing['CITY']} #{listing['ST']}"
+end
+
+TODO Finish testing
+TODO Class methods on Rechanize for parsing dates to and from RETS datetime strings
+TODO Test with a service other then MRED
+TODO Incorporate the visitor pattern to handle different protocol versions.
+
